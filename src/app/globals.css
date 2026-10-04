@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ivory: #f7f3ec;
+  --cream: #efe8dd;
+  --charcoal: #181816;
+  --near-black: #0d0d0c;
+  --champagne: #b49a63;
+  --taupe: #a89f92;
+  --white: #ffffff;
+  --header-h: 5rem; /* 80px — within 72–88px jewellery header range */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-near-black: var(--near-black);
+  --color-champagne: var(--champagne);
+  --color-taupe: var(--taupe);
+  --color-white: var(--white);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-sinhala: var(--font-sinhala);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body:lang(si),
+:lang(si) {
+  font-family: var(--font-sinhala), var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--champagne) 35%, white);
+  color: var(--near-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 3px;
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.mask-reveal {
+  clip-path: inset(0 0 100% 0);
+}
+
+.editorial-grain {
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(180, 154, 99, 0.08), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(168, 159, 146, 0.12), transparent 45%);
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10, 10, 9, 0.88) 0%,
+      rgba(10, 10, 9, 0.62) 28%,
+      rgba(10, 10, 9, 0.22) 52%,
+      rgba(10, 10, 9, 0.04) 72%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(10, 10, 9, 0.28) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(10, 10, 9, 0.45) 100%
+    );
+}
+
+@media (max-width: 1023px) {
+  .hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 10, 9, 0.35) 0%,
+        rgba(10, 10, 9, 0.15) 35%,
+        rgba(10, 10, 9, 0.55) 70%,
+        rgba(10, 10, 9, 0.82) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(10, 10, 9, 0.45) 0%,
+        transparent 55%
+      );
+  }
+}
+
+.section-pad {
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+.container-pad {
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
