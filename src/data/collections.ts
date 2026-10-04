@@ -128,7 +128,7 @@ export const bridalCollections: Collection[] = [
     id: "wedding-rings",
     slug: "wedding-rings",
     name: "Wedding Rings",
-    description: "Quiet symbols of commitment, crafted to be worn every day.",
+    description: "Quiet symbols of commitment, chosen to be worn every day.",
     href: "/jewellery?collection=wedding-rings",
     size: "medium",
     image: {

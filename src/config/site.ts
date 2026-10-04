@@ -7,9 +7,9 @@ import type { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
   name: "Bullion Gold House",
   shortName: "Bullion",
-  tagline: "Crafted in Gold. Made for Your Moments.",
+  tagline: "Gold for Your Meaningful Moments.",
   description:
-    "Discover jewellery created to become part of life's most meaningful celebrations. Premium gold jewellery for Sri Lankan moments of joy.",
+    "Discover jewellery for life's most meaningful celebrations. Premium gold jewellery for Sri Lankan moments of joy.",
   url: "https://bulliongoldhouse.lk",
   localeDefault: "en",
   locales: ["en", "si"],

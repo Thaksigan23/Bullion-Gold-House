@@ -190,11 +190,11 @@ export const showroomContent = {
 
 export const heroContent = {
   eyebrow: "Bullion Gold House",
-  headingLine1: "Crafted in Gold.",
+  headingLine1: "Gold for Your",
   /** Split for desktop campaign line breaks; wraps naturally on smaller screens */
-  headingLinesRest: ["Made for Your", "Moments."],
+  headingLinesRest: ["Meaningful", "Moments."],
   supporting:
-    "Discover jewellery created to become part of life's most meaningful celebrations.",
+    "Discover jewellery for life's most meaningful celebrations.",
   primaryCta: { label: "Explore Collection", href: "/jewellery" },
   secondaryCta: { label: "Discover Bullion", href: "/about" },
   /**
@@ -214,7 +214,7 @@ export const heroContent = {
  */
 export const showcaseContent = {
   eyebrow: "The Bullion Signature",
-  line1: "Crafted to",
+  line1: "Chosen to",
   line2: "be remembered.",
   supporting:
     "A celebration of detail, form and the enduring beauty of gold.",
