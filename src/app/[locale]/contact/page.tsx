@@ -14,7 +14,7 @@ export async function generateMetadata({
   if (!isLocale(raw)) return {};
   return createMetadata({
     title: "Contact",
-    description: `Contact ${siteConfig.name} for product, bridal, custom jewellery, or gold rate enquiries.`,
+    description: `Contact ${siteConfig.name} for product, bridal jewellery, availability, or gold rate enquiries.`,
     path: "/contact",
     locale: raw,
   });
@@ -32,6 +32,7 @@ export default async function ContactPage({
   const dict = getDictionary(raw);
   const { type, product } = await searchParams;
   const { contact } = siteConfig;
+  const mapUrl = contact.mapUrl || contact.directionsUrl;
 
   return (
     <div className="bg-ivory pt-[calc(var(--header-h)+3rem)] pb-24">
@@ -44,18 +45,19 @@ export default async function ContactPage({
             Get in Touch
           </h1>
           <p className="mt-4 max-w-md text-charcoal/70">
-            Enquire about a piece, bridal consultation, custom jewellery, or
+            Enquire about a piece, bridal jewellery, product availability, or
             today&apos;s gold rate.
           </p>
 
           <div className="mt-8 space-y-3 text-sm text-charcoal/75">
-            {contact.address ? <p>{contact.address}</p> : (
-              <p className="text-taupe">Showroom address pending configuration</p>
-            )}
+            {contact.address ? <p>{contact.address}</p> : null}
             {contact.hours ? <p>{contact.hours}</p> : null}
             {contact.email ? (
               <p>
-                <a href={`mailto:${contact.email}`} className="hover:text-champagne">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="hover:text-champagne"
+                >
                   {contact.email}
                 </a>
               </p>
@@ -76,23 +78,24 @@ export default async function ContactPage({
                 {dict.common.whatsappUs}
               </Button>
             ) : null}
-            {contact.directionsUrl || contact.mapUrl ? (
-              <Button
-                href={contact.directionsUrl || contact.mapUrl || "#"}
-                variant="primary"
-              >
+            {mapUrl ? (
+              <Button href={mapUrl} variant="primary">
                 {dict.common.getDirections}
               </Button>
             ) : null}
           </div>
 
-          <div className="mt-10 min-h-[220px] border border-dashed border-charcoal/20 bg-cream/50 p-6">
-            <p className="text-xs uppercase tracking-[0.18em] text-taupe">Map</p>
-            <p className="mt-3 text-sm text-charcoal/60">
-              Map embed appears here when a Google Maps URL is configured in
-              site settings.
-            </p>
-          </div>
+          {contact.mapUrl ? (
+            <div className="mt-10 overflow-hidden bg-cream">
+              <iframe
+                title="Bullion Gold House showroom map"
+                src={contact.mapUrl}
+                className="h-[220px] w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          ) : null}
         </div>
 
         <div className="bg-white p-6 md:p-10">

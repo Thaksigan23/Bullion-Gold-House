@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 
 const enquiryTypes = [
-  "Product Enquiry",
-  "Bridal",
-  "Custom Jewellery",
-  "Gold Rate",
   "General Enquiry",
+  "Product Enquiry",
+  "Bridal Jewellery",
+  "Gold Rate Enquiry",
+  "Product Availability",
 ] as const;
 
 export function ContactForm({
@@ -22,13 +22,13 @@ export function ContactForm({
 
   const initialType =
     defaultType === "bridal"
-      ? "Bridal"
-      : defaultType === "custom"
-        ? "Custom Jewellery"
-        : defaultType === "gold-rate"
-          ? "Gold Rate"
-          : defaultType === "product"
-            ? "Product Enquiry"
+      ? "Bridal Jewellery"
+      : defaultType === "gold-rate"
+        ? "Gold Rate Enquiry"
+        : defaultType === "product"
+          ? "Product Enquiry"
+          : defaultType === "availability"
+            ? "Product Availability"
             : "General Enquiry";
 
   return (

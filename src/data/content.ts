@@ -1,9 +1,4 @@
-import type {
-  BespokeStep,
-  Celebration,
-  GalleryItem,
-  TrustItem,
-} from "@/types";
+import type { Celebration, GalleryItem, TrustItem } from "@/types";
 
 /** Configurable occasion panels — DEMO CONTENT / TEMPORARY EDITORIAL ASSETS */
 export const celebrations: Celebration[] = [
@@ -75,106 +70,123 @@ export const celebrations: Celebration[] = [
   },
 ];
 
+/**
+ * Why Bullion pillars — safe experience-oriented copy only.
+ * Do not invent warranties, certifications, or unverified claims.
+ * TODO: Sinhala review when official translations are available.
+ */
 export const trustItems: TrustItem[] = [
-  {
-    id: "service",
-    title: "Thoughtful Service",
-    description: "Guidance with care, from first look to final selection.",
-  },
   {
     id: "curated",
     title: "Curated Jewellery",
-    description: "Pieces chosen for beauty, wearability, and lasting meaning.",
+    description:
+      "Discover pieces across bridal, celebration and everyday collections.",
   },
   {
     id: "assistance",
     title: "Personal Assistance",
-    description: "Speak with our team for bridal, gifting, or custom needs.",
+    description:
+      "Speak with the showroom when choosing jewellery for an occasion.",
   },
   {
-    id: "moments",
-    title: "Jewellery for Meaningful Moments",
-    description: "Designed to become part of celebrations you remember.",
+    id: "information",
+    title: "Clear Information",
+    description:
+      "Product and gold-rate information presented clearly when verified.",
   },
 ];
 
-export const bespokeSteps: BespokeStep[] = [
-  {
-    id: "01",
-    step: "01",
-    title: "Share Your Idea",
-    description: "Tell us about the occasion, style, and inspiration behind your piece.",
-  },
-  {
-    id: "02",
-    step: "02",
-    title: "Refine the Design",
-    description: "We help shape proportions, details, and finishing with you.",
-  },
-  {
-    id: "03",
-    step: "03",
-    title: "Craft Your Piece",
-    description: "Your jewellery is carefully brought to life with focused attention.",
-  },
-  {
-    id: "04",
-    step: "04",
-    title: "Collect Your Jewellery",
-    description: "Receive a piece made for your moment — ready to be worn and remembered.",
-  },
-];
-
+/**
+ * Editorial gallery — TEMPORARY LOCAL ASSETS.
+ * TODO: Replace with official Bullion Gold House campaign and product
+ * photography before final production launch.
+ */
 export const galleryItems: GalleryItem[] = [
   {
     id: "g1",
     span: "tall",
     image: {
-      src: "https://images.unsplash.com/photo-1769500805415-0f9485e70e5b?auto=format&fit=crop&w=1000&q=80",
-      alt: "Bridal portrait with gold jewellery",
+      src: "/images/celebrations/weddings.jpg",
+      alt: "Bridal portrait with yellow-gold jewellery",
+      objectPosition: "50% 22%",
     },
   },
   {
     id: "g2",
     span: "square",
     image: {
-      src: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80",
-      alt: "Gold necklace editorial still",
+      src: "/images/collections/bangles.jpg",
+      alt: "Warm yellow-gold bangles",
+      objectPosition: "50% 45%",
     },
   },
   {
     id: "g3",
     span: "wide",
     image: {
-      src: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=1400&q=80",
-      alt: "Macro gold jewellery craftsmanship",
+      src: "/images/bridal/wedding-jewellery.jpg",
+      alt: "Close-up of bridal gold jewellery",
+      objectPosition: "50% 35%",
     },
   },
   {
     id: "g4",
     span: "square",
     image: {
-      src: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80",
-      alt: "Gold ring detail",
+      src: "/images/bridal/wedding-rings.jpg",
+      alt: "Yellow-gold ring in warm light",
+      objectPosition: "50% 50%",
     },
   },
   {
     id: "g5",
     span: "tall",
     image: {
-      src: "https://images.unsplash.com/photo-1762709414326-67c887a8dc98?auto=format&fit=crop&w=1000&q=80",
-      alt: "Traditional bridal jewellery styling",
+      src: "/images/bridal/bridal-gold.jpg",
+      alt: "Layered bridal gold jewellery styling",
+      objectPosition: "50% 28%",
     },
   },
   {
     id: "g6",
     span: "square",
     image: {
-      src: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=1000&q=80",
-      alt: "Gold bangles and bracelets",
+      src: "/images/collections/earrings.jpg",
+      alt: "Yellow-gold earrings editorial still",
+      objectPosition: "50% 45%",
     },
   },
 ];
+
+/** Jewellery Enquiry — showroom contact only; no manufacturing claims */
+export const enquiryContent = {
+  eyebrow: "Personal Assistance",
+  line1: "Find the Piece",
+  line2: "That Feels Right.",
+  supporting:
+    "Looking for jewellery for a wedding, celebration, gift or everyday occasion? Speak with the showroom about the pieces currently available.",
+  primaryCta: { label: "Make an Enquiry", href: "/contact" },
+  secondaryCta: { label: "Contact Showroom", href: "/contact" },
+  image: {
+    src: "/images/bridal/enquiry.jpg",
+    alt: "Hands adorned with yellow-gold jewellery",
+    objectPosition: "50% 45%",
+  },
+};
+
+/** Visit Bullion / showroom conversion — TODO: Sinhala review */
+export const showroomContent = {
+  eyebrow: "Visit Bullion",
+  line1: "See the Jewellery",
+  line2: "In Person.",
+  supporting:
+    "Visit the showroom or contact Bullion Gold House for product, availability and gold-rate enquiries.",
+  image: {
+    src: "/images/hero/campaign-portrait.jpg",
+    alt: "Editorial portrait wearing fine gold jewellery",
+    objectPosition: "50% 30%",
+  },
+};
 
 export const heroContent = {
   eyebrow: "Bullion Gold House",
@@ -215,11 +227,23 @@ export const showcaseContent = {
   },
 };
 
+/**
+ * Craftsmanship / detail appreciation — no manufacturing claims.
+ * TODO: Sinhala review when official translations are available.
+ */
 export const craftsmanshipContent = {
-  heading: "Made With Meaning",
-  body: "At Bullion Gold House, jewellery is more than an ornament. It becomes part of the moments, traditions and memories we carry forward.",
+  eyebrow: "A Closer Look",
+  heading: "Beauty in the Details",
+  body: "Explore jewellery through the details that define its character — form, texture, proportion and finish.",
   image: {
-    src: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=1600&q=80",
-    alt: "Macro jewellery craftsmanship detail",
+    src: "/images/products/luna-bangle-1.jpg",
+    alt: "Close-up detail of yellow-gold bangle texture",
+    objectPosition: "50% 50%",
   },
+};
+
+/** Why Bullion section chrome — TODO: Sinhala review */
+export const whyBullionContent = {
+  eyebrow: "Why Bullion",
+  title: "A Thoughtful Way to Choose",
 };

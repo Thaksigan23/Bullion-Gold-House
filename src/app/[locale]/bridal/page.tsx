@@ -123,8 +123,8 @@ export default async function BridalPage({
             Book a Bridal Consultation
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-ivory/70">
-            Speak with our team about bridal selections, wedding rings, or a
-            bespoke piece for your celebration.
+            Speak with the showroom about bridal selections, wedding rings,
+            and jewellery for your celebration.
           </p>
           <div className="mt-8 flex justify-center">
             <Button

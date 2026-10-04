@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { JewelleryListing } from "@/components/jewellery/JewelleryListing";
 import { products } from "@/data/products";
-import { DEMO_DISCLAIMER } from "@/config/site";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { createMetadata } from "@/lib/seo";
 import type { Locale } from "@/types";
@@ -45,9 +44,6 @@ export default async function JewelleryPage({
         <p className="mt-4 max-w-xl text-charcoal/70">
           Discover curated pieces for celebration and everyday elegance. Enquire
           for current availability and pricing.
-        </p>
-        <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-taupe/70">
-          {DEMO_DISCLAIMER}
         </p>
 
         <Suspense fallback={<p className="mt-10 text-taupe">Loading…</p>}>

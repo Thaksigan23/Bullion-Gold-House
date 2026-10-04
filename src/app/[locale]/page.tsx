@@ -6,7 +6,7 @@ import { NewArrivals } from "@/components/sections/NewArrivals";
 import { BridalSection } from "@/components/sections/BridalSection";
 import { CelebrationsSection } from "@/components/sections/CelebrationsSection";
 import { Craftsmanship } from "@/components/sections/Craftsmanship";
-import { BespokeSection } from "@/components/sections/BespokeSection";
+import { JewelleryEnquiry } from "@/components/sections/JewelleryEnquiry";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { EditorialGallery } from "@/components/sections/EditorialGallery";
 import { SocialSection } from "@/components/sections/SocialSection";
@@ -56,7 +56,7 @@ export default async function HomePage({
       <BridalSection locale={locale} />
       <CelebrationsSection />
       <Craftsmanship />
-      <BespokeSection locale={locale} />
+      <JewelleryEnquiry locale={locale} />
       <TrustSection />
       <EditorialGallery />
       <SocialSection dict={dict} />

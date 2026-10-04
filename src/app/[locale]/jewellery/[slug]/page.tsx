@@ -3,7 +3,7 @@ import { ProductGallery } from "@/components/jewellery/ProductGallery";
 import { ProductCard } from "@/components/jewellery/ProductCard";
 import { Button } from "@/components/ui/Button";
 import { getProductBySlug, getRelatedProducts, products } from "@/data/products";
-import { siteConfig, DEMO_DISCLAIMER } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { getDictionary, isLocale, localizedHref } from "@/lib/i18n";
 import { breadcrumbJsonLd, createMetadata, productJsonLd } from "@/lib/seo";
 import { formatPrice } from "@/lib/utils";
@@ -82,9 +82,6 @@ export default async function ProductPage({
           </h1>
           <p className="mt-4 text-xl">{formatPrice(product.price, product.currency)}</p>
           <p className="mt-6 leading-relaxed text-charcoal/70">{product.description}</p>
-          <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-taupe/70">
-            {DEMO_DISCLAIMER}
-          </p>
 
           <dl className="mt-8 space-y-3 border-y border-charcoal/10 py-6 text-sm">
             <Row label={dict.product.category} value={product.category} />

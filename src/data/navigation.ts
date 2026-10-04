@@ -51,32 +51,15 @@ export const mainNavigation: NavItem[] = [
 ];
 
 export const footerNavigation = {
-  jewellery: [
-    { label: "Necklaces", href: "/jewellery?category=necklaces" },
-    { label: "Bangles", href: "/jewellery?category=bangles" },
-    { label: "Earrings", href: "/jewellery?category=earrings" },
-    { label: "Rings", href: "/jewellery?category=rings" },
-    { label: "Chains", href: "/jewellery?category=chains" },
-    { label: "Pendants", href: "/jewellery?category=pendants" },
-  ],
-  collections: [
-    { label: "New Arrivals", href: "/jewellery?collection=new-arrivals" },
-    { label: "Signature", href: "/jewellery?collection=signature" },
-    { label: "Wedding", href: "/jewellery?collection=wedding" },
-    { label: "Everyday Gold", href: "/jewellery?collection=everyday-gold" },
-    { label: "Gifting", href: "/jewellery?collection=gifting" },
-  ],
-  customerCare: [
-    { label: "Contact Us", href: "/contact" },
-    { label: "Gold Rate", href: "/gold-rate" },
-    { label: "Returns / Exchange", href: "/contact" },
-    { label: "Privacy Policy", href: "/contact" },
-    { label: "Terms", href: "/contact" },
-  ],
-  about: [
-    { label: "Our Story", href: "/about" },
-    { label: "Craftsmanship", href: "/about#craftsmanship" },
+  explore: [
+    { label: "Jewellery", href: "/jewellery" },
+    { label: "Collections", href: "/jewellery?collection=signature" },
     { label: "Bridal", href: "/bridal" },
-    { label: "Bespoke", href: "/contact?type=custom" },
+    { label: "New Arrivals", href: "/jewellery?collection=new-arrivals" },
+    { label: "Gold Rate", href: "/gold-rate" },
+  ],
+  company: [
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
 };

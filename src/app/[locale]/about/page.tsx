@@ -42,10 +42,6 @@ export default async function AboutPage({
             life&apos;s most meaningful celebrations — from everyday elegance to
             lifelong vows.
           </p>
-          <p className="mt-4 max-w-xl text-sm text-taupe">
-            Business history details are placeholders until official information
-            is provided.
-          </p>
         </div>
       </section>
 
@@ -80,11 +76,11 @@ export default async function AboutPage({
             },
             {
               title: "Craftsmanship",
-              body: "Attention to form, finish, and comfort. Specific manufacturing claims will be published when verified.",
+              body: "Attention to form, finish, and comfort — explored through the details that define each piece.",
             },
             {
               title: "Customer Experience",
-              body: "Thoughtful guidance whether you are selecting a gift, preparing for a wedding, or beginning a custom enquiry.",
+              body: "Thoughtful guidance whether you are selecting a gift, preparing for a wedding, or exploring jewellery for everyday wear.",
             },
           ].map((item) => (
             <div key={item.title} className="border-t border-champagne/60 pt-5">
@@ -104,17 +100,13 @@ export default async function AboutPage({
           </h2>
           <div>
             <p className="leading-relaxed text-ivory/70">
-              Visit Bullion Gold House to experience pieces in person. Exact
-              address, hours, and contact details will appear here once
-              configured in the site settings.
+              Visit Bullion Gold House to experience pieces in person, or
+              contact the showroom for product, availability and gold-rate
+              enquiries.
             </p>
             {siteConfig.contact.address ? (
               <p className="mt-4 text-ivory/85">{siteConfig.contact.address}</p>
-            ) : (
-              <p className="mt-4 text-xs uppercase tracking-[0.16em] text-ivory/40">
-                Address pending configuration
-              </p>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
