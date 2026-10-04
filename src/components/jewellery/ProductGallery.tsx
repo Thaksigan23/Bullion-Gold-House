@@ -1,61 +1,88 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import type { ProductImage } from "@/types";
-import { cn } from "@/lib/utils";
 
-export function ProductGallery({ images }: { images: ProductImage[] }) {
-  const [active, setActive] = useState(0);
-  const [zoomed, setZoomed] = useState(false);
+export function ProductGallery({
+  images,
+  productName,
+}: {
+  images: ProductImage[];
+  productName: string;
+}) {
+  const unique = images.filter(
+    (image, index, arr) =>
+      arr.findIndex((item) => item.src === image.src) === index,
+  );
+
+  if (unique.length === 0) return null;
+
+  if (unique.length === 1) {
+    const image = unique[0];
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-cream lg:min-h-[70vh] lg:aspect-auto">
+        <Image
+          src={image.src}
+          alt={image.alt || productName}
+          fill
+          priority
+          className="object-cover"
+          style={{ objectPosition: image.objectPosition ?? "50% 50%" }}
+          sizes="(max-width: 1024px) 100vw, 60vw"
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-3">
-      <button
-        type="button"
-        className="relative aspect-[4/5] w-full overflow-hidden bg-cream"
-        onClick={() => setZoomed((z) => !z)}
-        aria-label="Toggle image zoom"
-      >
-        <Image
-          src={images[active]?.src}
-          alt={images[active]?.alt || "Product image"}
-          fill
-          className={cn(
-            "object-cover transition-transform duration-500",
-            zoomed ? "scale-150 cursor-zoom-out" : "cursor-zoom-in",
-          )}
-          sizes="(max-width: 1024px) 100vw, 60vw"
-          priority
-        />
-      </button>
-      {images.length > 1 ? (
-        <div className="flex gap-2">
-          {images.map((image, i) => (
-            <button
+    <>
+      {/* Mobile: horizontal snap gallery */}
+      <div className="lg:hidden">
+        <div
+          className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-2"
+          aria-label={`${productName} images`}
+        >
+          {unique.map((image, i) => (
+            <div
               key={image.src + i}
-              type="button"
-              onClick={() => {
-                setActive(i);
-                setZoomed(false);
-              }}
-              className={cn(
-                "relative h-20 w-16 overflow-hidden border",
-                active === i ? "border-champagne" : "border-transparent",
-              )}
-              aria-label={`View image ${i + 1}`}
+              className="relative aspect-[4/5] w-[86%] shrink-0 snap-center overflow-hidden bg-cream"
             >
               <Image
                 src={image.src}
-                alt={image.alt}
+                alt={image.alt || `${productName} — image ${i + 1}`}
                 fill
+                priority={i === 0}
                 className="object-cover"
-                sizes="64px"
+                style={{ objectPosition: image.objectPosition ?? "50% 50%" }}
+                sizes="86vw"
               />
-            </button>
+            </div>
           ))}
         </div>
-      ) : null}
-    </div>
+        <p className="mt-3 text-center text-[11px] uppercase tracking-[0.16em] text-taupe">
+          Swipe to view · {unique.length} images
+        </p>
+      </div>
+
+      {/* Desktop: stacked editorial images */}
+      <div className="hidden space-y-3 lg:block">
+        {unique.map((image, i) => (
+          <div
+            key={image.src + i}
+            className="relative aspect-[4/5] overflow-hidden bg-cream"
+          >
+            <Image
+              src={image.src}
+              alt={image.alt || `${productName} — image ${i + 1}`}
+              fill
+              priority={i === 0}
+              className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+              style={{ objectPosition: image.objectPosition ?? "50% 50%" }}
+              sizes="60vw"
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

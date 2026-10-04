@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Heart, Menu, MessageCircle, Search, ShoppingBag } from "lucide-react";
 import { LocaleLink } from "@/components/ui/LocaleLink";
-import { LanguageSwitcher } from "@/components/navigation/LanguageSwitcher";
 import { MegaMenu } from "@/components/navigation/MegaMenu";
 import { MobileMenu } from "@/components/navigation/MobileMenu";
 import { SearchOverlay } from "@/components/navigation/SearchOverlay";
@@ -27,6 +26,13 @@ export function Header({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mega, setMega] = useState<NavItem | null>(null);
+  const [megaPathname, setMegaPathname] = useState(pathname);
+
+  // Close mega menu on route change so it never overlays page intros
+  if (pathname !== megaPathname) {
+    setMegaPathname(pathname);
+    if (mega) setMega(null);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -77,6 +83,7 @@ export function Header({
                 >
                   <LocaleLink
                     href={item.href}
+                    onClick={() => setMega(null)}
                     className={cn(
                       "inline-block whitespace-nowrap px-2.5 py-2 text-[11px] uppercase tracking-[0.16em] transition-colors xl:px-3 xl:tracking-[0.18em]",
                       linkTone,
@@ -129,12 +136,6 @@ export function Header({
               ))}
             </nav>
 
-            <LanguageSwitcher
-              locale={locale}
-              light={!solid}
-              className="mx-1 hidden sm:block"
-            />
-
             <button
               type="button"
               className="p-2"
@@ -181,7 +182,6 @@ export function Header({
       <MobileMenu
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        locale={locale}
         dict={dict}
       />
       <SearchOverlay

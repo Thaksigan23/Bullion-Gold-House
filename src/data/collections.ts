@@ -102,7 +102,7 @@ export const bridalCollections: Collection[] = [
     slug: "bridal-gold",
     name: "Bridal Gold",
     description: "Jewellery for the ceremony and every celebration around it.",
-    href: "/jewellery?collection=bridal-gold",
+    href: "/jewellery?category=bridal",
     size: "large",
     image: {
       src: "/images/bridal/bridal-gold.jpg",

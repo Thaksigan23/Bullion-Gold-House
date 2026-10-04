@@ -1,17 +1,9 @@
-import Link from "next/link";
 import { LocaleLink } from "@/components/ui/LocaleLink";
 import { footerNavigation } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
-import type { Locale } from "@/types";
 
-export function Footer({
-  locale,
-  dict,
-}: {
-  locale: Locale;
-  dict: Dictionary;
-}) {
+export function Footer({ dict }: { dict: Dictionary }) {
   const year = new Date().getFullYear();
   const { contact, social } = siteConfig;
   const hasSocial = Boolean(
@@ -40,8 +32,8 @@ export function Footer({
           <div
             className={
               hasContact || hasSocial
-                ? "grid grid-cols-2 gap-8 sm:grid-cols-4"
-                : "grid grid-cols-2 gap-8 sm:grid-cols-3"
+                ? "grid grid-cols-2 gap-8 sm:grid-cols-3"
+                : "grid grid-cols-2 gap-8"
             }
           >
             <div>
@@ -152,40 +144,6 @@ export function Footer({
                 ) : null}
               </div>
             ) : null}
-
-            <div>
-              <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-champagne">
-                {dict.common.language}
-              </p>
-              <ul className="space-y-2.5">
-                <li>
-                  <Link
-                    href="/en"
-                    hrefLang="en"
-                    className={
-                      locale === "en"
-                        ? "text-sm text-champagne"
-                        : "text-sm text-ivory/65 transition-colors hover:text-ivory"
-                    }
-                  >
-                    English
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/si"
-                    hrefLang="si"
-                    className={
-                      locale === "si"
-                        ? "text-sm text-champagne"
-                        : "text-sm text-ivory/65 transition-colors hover:text-ivory"
-                    }
-                  >
-                    සිංහල
-                  </Link>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
 

@@ -35,7 +35,7 @@ export default async function LocaleLayout({
         <CustomCursor />
         <Header locale={locale} dict={dict} />
         <main className="flex-1">{children}</main>
-        <Footer locale={locale} dict={dict} />
+        <Footer dict={dict} />
       </SmoothScroll>
     </div>
   );

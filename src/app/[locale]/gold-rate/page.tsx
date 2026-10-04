@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { FadeReveal } from "@/components/motion/FadeReveal";
 import { Button } from "@/components/ui/Button";
 import { getGoldRate } from "@/lib/goldRate";
 import { getDictionary, isLocale, localizedHref } from "@/lib/i18n";
@@ -14,9 +15,9 @@ export async function generateMetadata({
   const { locale: raw } = await params;
   if (!isLocale(raw)) return {};
   return createMetadata({
-    title: "Gold Rate",
+    title: "Today's Gold Rate",
     description:
-      "View today's indicative gold rate information for Bullion Gold House. Contact the showroom for confirmed pricing.",
+      "View today's gold rate information for Bullion Gold House. Contact the showroom for confirmed pricing.",
     path: "/gold-rate",
     locale: raw,
   });
@@ -35,88 +36,91 @@ export default async function GoldRatePage({
   const showValues = rate.karat22 != null || rate.karat24 != null;
 
   return (
-    <div className="bg-ivory pt-[calc(var(--header-h)+3rem)] pb-24">
+    <div className="bg-ivory pt-[calc(var(--header-h)+3rem)] pb-24 md:pt-[calc(var(--header-h)+5rem)]">
       <div className="mx-auto max-w-3xl px-5 md:px-8">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-taupe">
-          {dict.common.todayGoldRate}
-        </p>
-        <h1 className="mt-3 font-serif text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05]">
-          Gold Rate
-        </h1>
-        <p className="mt-4 text-charcoal/70">
-          Indicative rates for reference. Final transaction prices are confirmed
-          at the showroom.
-        </p>
-
-        <div className="mt-12 grid gap-6 border border-charcoal/10 bg-white p-8 md:grid-cols-2">
-          <RateCard
-            label="22K"
-            value={
-              showValues
-                ? formatGoldRate(rate.karat22, rate.currency)
-                : dict.common.contactForRate
-            }
-          />
-          <RateCard
-            label="24K"
-            value={
-              showValues
-                ? formatGoldRate(rate.karat24, rate.currency)
-                : dict.common.contactForRate
-            }
-          />
-        </div>
-
-        <dl className="mt-8 space-y-3 text-sm">
-          <div className="flex justify-between border-b border-charcoal/10 py-3">
-            <dt className="text-taupe">Unit</dt>
-            <dd>{rate.unit}</dd>
-          </div>
-          <div className="flex justify-between border-b border-charcoal/10 py-3">
-            <dt className="text-taupe">Currency</dt>
-            <dd>{rate.currency}</dd>
-          </div>
-          <div className="flex justify-between border-b border-charcoal/10 py-3">
-            <dt className="text-taupe">{dict.common.lastUpdated}</dt>
-            <dd>
-              {rate.updatedAt
-                ? new Date(rate.updatedAt).toLocaleString("en-LK")
-                : "—"}
-            </dd>
-          </div>
-        </dl>
-
-        <aside className="mt-10 border-l-2 border-champagne bg-cream/60 p-5 text-sm leading-relaxed text-charcoal/70">
-          <p className="font-medium text-charcoal">Disclaimer</p>
-          <p className="mt-2">
-            Published rates are indicative and may change without notice. They
-            do not constitute a guaranteed transaction price. Please contact
-            Bullion Gold House for confirmed rates before purchase.
+        <FadeReveal>
+          <p className="text-[11px] uppercase tracking-[0.28em] text-taupe">
+            Gold Rate
           </p>
-          {rate.isDemo ? (
-            <p className="mt-3 text-xs uppercase tracking-[0.14em] text-taupe">
+          <h1 className="mt-4 font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-charcoal">
+            Today&apos;s Gold Rate
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-charcoal/65">
+            Clear reference values for the day. Final jewellery pricing is
+            confirmed at the showroom.
+          </p>
+        </FadeReveal>
+
+        <FadeReveal delay={0.08} className="mt-14 md:mt-20">
+          {showValues ? (
+            <div className="space-y-10 border-y border-charcoal/10 py-12">
+              <RateRow
+                label="22KT"
+                value={formatGoldRate(rate.karat22, rate.currency)}
+              />
+              <RateRow
+                label="24KT"
+                value={formatGoldRate(rate.karat24, rate.currency)}
+              />
+            </div>
+          ) : (
+            <div className="border-y border-charcoal/10 py-14">
+              <p className="font-serif text-2xl text-charcoal md:text-3xl">
+                Contact the showroom for today&apos;s gold rate.
+              </p>
+            </div>
+          )}
+        </FadeReveal>
+
+        <FadeReveal delay={0.12} className="mt-8 space-y-3 text-sm text-charcoal/60">
+          {showValues ? (
+            <p>
+              Unit: {rate.unit} · Currency: {rate.currency}
+            </p>
+          ) : null}
+          {rate.updatedAt ? (
+            <p>
+              {dict.common.lastUpdated}:{" "}
+              {new Date(rate.updatedAt).toLocaleString("en-LK")}
+            </p>
+          ) : null}
+          {showValues && rate.isDemo ? (
+            <p className="text-[11px] uppercase tracking-[0.16em] text-taupe">
               {dict.common.demoRate}
             </p>
           ) : null}
-        </aside>
+        </FadeReveal>
 
-        <div className="mt-10">
-          <Button href={localizedHref("/contact?type=gold-rate", locale)} variant="primary">
-            Contact for Today&apos;s Rate
-          </Button>
-        </div>
+        <FadeReveal delay={0.16} className="mt-12 max-w-xl">
+          <p className="leading-relaxed text-charcoal/65">
+            Jewellery pricing may depend on product-specific factors such as
+            design, weight and availability. Please contact the showroom for
+            confirmed rates before purchase.
+          </p>
+          <div className="mt-10">
+            <Button
+              href={localizedHref("/contact?type=gold-rate", locale)}
+              variant="primary"
+              size="lg"
+            >
+              Contact Showroom
+            </Button>
+          </div>
+        </FadeReveal>
       </div>
     </div>
   );
 }
 
-function RateCard({ label, value }: { label: string; value: string }) {
+function RateRow({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <p className="text-[11px] uppercase tracking-[0.22em] text-champagne">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
+      <p className="text-[11px] uppercase tracking-[0.28em] text-champagne">
         {label}
       </p>
-      <p className="mt-3 font-serif text-3xl md:text-4xl">{value}</p>
+      <p className="font-serif text-[clamp(2rem,5vw,3.25rem)] leading-none tracking-[-0.02em] text-charcoal">
+        {value}
+      </p>
     </div>
   );
 }

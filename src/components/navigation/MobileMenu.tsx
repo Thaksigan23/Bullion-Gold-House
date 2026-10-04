@@ -4,20 +4,16 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { LocaleLink } from "@/components/ui/LocaleLink";
-import { LanguageSwitcher } from "@/components/navigation/LanguageSwitcher";
 import { mainNavigation } from "@/data/navigation";
 import type { Dictionary } from "@/lib/i18n";
-import type { Locale } from "@/types";
 
 export function MobileMenu({
   open,
   onClose,
-  locale,
   dict,
 }: {
   open: boolean;
   onClose: () => void;
-  locale: Locale;
   dict: Dictionary;
 }) {
   useEffect(() => {
@@ -51,8 +47,8 @@ export function MobileMenu({
             </button>
           </div>
 
-          <nav className="flex h-[calc(100%-5rem)] flex-col justify-between px-5 pb-10">
-            <ul className="space-y-1 pt-6">
+          <nav className="px-5 pb-10 pt-6">
+            <ul className="space-y-1">
               {mainNavigation.map((item, i) => (
                 <motion.li
                   key={item.href + item.label}
@@ -70,13 +66,6 @@ export function MobileMenu({
                 </motion.li>
               ))}
             </ul>
-
-            <div className="space-y-4 border-t border-ivory/15 pt-6">
-              <LanguageSwitcher locale={locale} light />
-              <p className="text-xs uppercase tracking-[0.2em] text-ivory/45">
-                {dict.common.language}
-              </p>
-            </div>
           </nav>
         </motion.div>
       ) : null}

@@ -1,216 +1,299 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { X } from "lucide-react";
+import {
+  categoryLabels,
+  getCatalogueCategories,
+  isBridalProduct,
+  type CatalogueCategory,
+} from "@/lib/productCategories";
 import type { Dictionary } from "@/lib/i18n";
-import type { Product, ProductCategory, Karat, Metal, CollectionSlug } from "@/types";
+import type { Karat, Product, ProductCategory } from "@/types";
 import { cn } from "@/lib/utils";
 
 export type FilterState = {
-  category?: ProductCategory;
-  metal?: Metal;
+  category?: CatalogueCategory;
   karat?: Karat;
-  collection?: CollectionSlug;
-  sort: "newest" | "name" | "featured";
+  available?: boolean;
+  sort: "featured" | "newest";
 };
 
 export function filterProducts(products: Product[], filters: FilterState) {
   let list = [...products];
-  if (filters.category) list = list.filter((p) => p.category === filters.category);
-  if (filters.metal) list = list.filter((p) => p.metal === filters.metal);
-  if (filters.karat) list = list.filter((p) => p.karat === filters.karat);
-  if (filters.collection) {
-    list = list.filter((p) => p.collection === filters.collection);
+
+  if (filters.category && filters.category !== "all") {
+    if (filters.category === "bridal") {
+      list = list.filter(isBridalProduct);
+    } else {
+      list = list.filter((p) => p.category === filters.category);
+    }
   }
-  if (filters.sort === "name") {
-    list.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (filters.sort === "featured") {
-    list.sort((a, b) => Number(b.featured) - Number(a.featured));
+
+  if (filters.karat) {
+    list = list.filter((p) => p.karat === filters.karat);
+  }
+
+  if (filters.available === true) {
+    list = list.filter((p) => p.available);
+  } else if (filters.available === false) {
+    list = list.filter((p) => !p.available);
+  }
+
+  if (filters.sort === "featured") {
+    list.sort(
+      (a, b) =>
+        Number(b.featured) - Number(a.featured) ||
+        Number(b.newArrival) - Number(a.newArrival),
+    );
   } else {
-    list.sort((a, b) => Number(b.newArrival) - Number(a.newArrival));
+    list.sort(
+      (a, b) =>
+        Number(b.newArrival) - Number(a.newArrival) ||
+        Number(b.featured) - Number(a.featured),
+    );
   }
+
   return list;
 }
 
 export function ProductFilters({
   products,
   dict,
-  initial,
+  value,
   onChange,
 }: {
   products: Product[];
   dict: Dictionary;
-  initial: FilterState;
+  value: FilterState;
   onChange: (next: FilterState) => void;
 }) {
-  const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState(initial);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const titleId = useId();
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const options = useMemo(() => {
-    return {
-      category: [...new Set(products.map((p) => p.category))],
-      metal: [...new Set(products.map((p) => p.metal))],
-      karat: [...new Set(products.map((p) => p.karat).filter(Boolean))] as Karat[],
-      collection: [
-        ...new Set(products.map((p) => p.collection).filter(Boolean)),
-      ] as CollectionSlug[],
+  const categories = useMemo(
+    () => getCatalogueCategories(products),
+    [products],
+  );
+
+  const karats = useMemo(
+    () =>
+      [...new Set(products.map((p) => p.karat).filter(Boolean))] as Karat[],
+    [products],
+  );
+
+  const hasAvailabilityVariance = useMemo(
+    () => products.some((p) => p.available) && products.some((p) => !p.available),
+    [products],
+  );
+
+  const activeFilterCount =
+    (value.karat ? 1 : 0) + (value.available !== undefined ? 1 : 0);
+
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
     };
-  }, [products]);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [drawerOpen]);
 
-  const apply = (next: FilterState) => {
-    setDraft(next);
-    onChange(next);
+  const clearFilters = () => {
+    onChange({
+      category: value.category ?? "all",
+      sort: value.sort,
+    });
   };
 
-  const panel = (
-    <div className="space-y-6">
-      <FilterGroup label={dict.filters.category}>
-        {options.category.map((value) => (
-          <Chip
-            key={value}
-            active={draft.category === value}
-            onClick={() =>
-              apply({
-                ...draft,
-                category: draft.category === value ? undefined : value,
-              })
-            }
-            label={value}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup label={dict.filters.metal}>
-        {options.metal.map((value) => (
-          <Chip
-            key={value}
-            active={draft.metal === value}
-            onClick={() =>
-              apply({
-                ...draft,
-                metal: draft.metal === value ? undefined : value,
-              })
-            }
-            label={value}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup label={dict.filters.karat}>
-        {options.karat.map((value) => (
-          <Chip
-            key={value}
-            active={draft.karat === value}
-            onClick={() =>
-              apply({
-                ...draft,
-                karat: draft.karat === value ? undefined : value,
-              })
-            }
-            label={value}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup label={dict.filters.collection}>
-        {options.collection.map((value) => (
-          <Chip
-            key={value}
-            active={draft.collection === value}
-            onClick={() =>
-              apply({
-                ...draft,
-                collection: draft.collection === value ? undefined : value,
-              })
-            }
-            label={value.replace(/-/g, " ")}
-          />
-        ))}
-      </FilterGroup>
-      <FilterGroup label={dict.filters.sort}>
-        {(
-          [
-            ["newest", dict.filters.newest],
-            ["name", dict.filters.nameAsc],
-            ["featured", dict.filters.featured],
-          ] as const
-        ).map(([value, label]) => (
-          <Chip
-            key={value}
-            active={draft.sort === value}
-            onClick={() => apply({ ...draft, sort: value })}
-            label={label}
-          />
-        ))}
-      </FilterGroup>
-      <button
-        type="button"
-        className="text-xs uppercase tracking-[0.18em] text-taupe hover:text-charcoal"
-        onClick={() => apply({ sort: "newest" })}
-      >
-        {dict.filters.clear}
-      </button>
+  const filterPanel = (
+    <div className="space-y-8">
+      {karats.length > 0 ? (
+        <fieldset>
+          <legend className="mb-3 text-[11px] uppercase tracking-[0.2em] text-taupe">
+            {dict.filters.karat}
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {karats.map((karat) => (
+              <FilterChip
+                key={karat}
+                label={karat}
+                active={value.karat === karat}
+                onClick={() =>
+                  onChange({
+                    ...value,
+                    karat: value.karat === karat ? undefined : karat,
+                  })
+                }
+              />
+            ))}
+          </div>
+        </fieldset>
+      ) : null}
+
+      {hasAvailabilityVariance ? (
+        <fieldset>
+          <legend className="mb-3 text-[11px] uppercase tracking-[0.2em] text-taupe">
+            {dict.product.availability}
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            <FilterChip
+              label={dict.product.available}
+              active={value.available === true}
+              onClick={() =>
+                onChange({
+                  ...value,
+                  available: value.available === true ? undefined : true,
+                })
+              }
+            />
+            <FilterChip
+              label={dict.product.unavailable}
+              active={value.available === false}
+              onClick={() =>
+                onChange({
+                  ...value,
+                  available: value.available === false ? undefined : false,
+                })
+              }
+            />
+          </div>
+        </fieldset>
+      ) : null}
+
+      {activeFilterCount > 0 ? (
+        <button
+          type="button"
+          className="min-h-11 text-[11px] uppercase tracking-[0.18em] text-taupe transition-colors hover:text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
+          onClick={clearFilters}
+        >
+          {dict.filters.clear}
+        </button>
+      ) : null}
     </div>
   );
 
   return (
-    <>
-      <aside className="hidden w-64 shrink-0 lg:block">
-        <p className="mb-5 text-[11px] uppercase tracking-[0.22em] text-taupe">
-          {dict.filters.title}
-        </p>
-        {panel}
-      </aside>
+    <div>
+      <nav
+        aria-label="Jewellery categories"
+        className="-mx-5 overflow-x-auto px-5 md:mx-0 md:overflow-visible md:px-0"
+      >
+        <ul className="flex min-w-max items-center gap-1 border-b border-charcoal/10 md:min-w-0 md:flex-wrap md:gap-0">
+          {categories.map((item) => {
+            const active = (value.category ?? "all") === item.id;
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => onChange({ ...value, category: item.id })}
+                  className={cn(
+                    "relative min-h-11 whitespace-nowrap px-3 py-3 text-[11px] uppercase tracking-[0.16em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne md:px-4",
+                    active
+                      ? "text-charcoal"
+                      : "text-charcoal/45 hover:text-charcoal/75",
+                  )}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                  {active ? (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-3 bottom-0 h-px bg-champagne"
+                    />
+                  ) : null}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
 
-      <div className="lg:hidden">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-6">
         <button
           type="button"
-          onClick={() => setOpen(true)}
-          className="border border-charcoal/20 px-4 py-2 text-[11px] uppercase tracking-[0.18em]"
+          onClick={() => setDrawerOpen(true)}
+          className="inline-flex min-h-11 items-center gap-2 border border-charcoal/15 px-4 text-[11px] uppercase tracking-[0.18em] text-charcoal/80 transition-colors hover:border-champagne/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
         >
           {dict.filters.title}
+          {activeFilterCount > 0 ? (
+            <span className="text-champagne">({activeFilterCount})</span>
+          ) : null}
         </button>
-        {open ? (
-          <div className="fixed inset-0 z-[60] bg-near-black/40" onClick={() => setOpen(false)}>
-            <div
-              className="absolute inset-x-0 bottom-0 max-h-[80vh] overflow-y-auto bg-ivory p-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-[11px] uppercase tracking-[0.22em]">{dict.filters.title}</p>
-                <button type="button" onClick={() => setOpen(false)} aria-label="Close">
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              {panel}
+
+        <label className="inline-flex min-h-11 items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-taupe">
+          <span>{dict.filters.sort}</span>
+          <select
+            value={value.sort}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                sort: e.target.value as FilterState["sort"],
+              })
+            }
+            className="min-h-11 border-0 border-b border-charcoal/20 bg-transparent py-2 pr-6 text-[11px] uppercase tracking-[0.16em] text-charcoal outline-none focus-visible:border-champagne"
+          >
+            <option value="featured">{dict.filters.featured}</option>
+            <option value="newest">{dict.filters.newest}</option>
+          </select>
+        </label>
+      </div>
+
+      {drawerOpen ? (
+        <div
+          className="fixed inset-0 z-[60] bg-near-black/40"
+          onClick={() => setDrawerOpen(false)}
+          role="presentation"
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-ivory shadow-none sm:max-w-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-charcoal/10 px-5 py-4">
+              <p
+                id={titleId}
+                className="text-[11px] uppercase tracking-[0.22em] text-charcoal"
+              >
+                {dict.filters.title}
+              </p>
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={() => setDrawerOpen(false)}
+                aria-label={dict.nav.close}
+                className="flex min-h-11 min-w-11 items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-5 py-8">{filterPanel}</div>
+            <div className="border-t border-charcoal/10 p-5">
               <button
                 type="button"
-                className="mt-6 w-full bg-charcoal py-3 text-[11px] uppercase tracking-[0.18em] text-ivory"
-                onClick={() => setOpen(false)}
+                className="flex min-h-12 w-full items-center justify-center bg-charcoal text-[11px] uppercase tracking-[0.18em] text-ivory transition-colors hover:bg-charcoal/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
+                onClick={() => setDrawerOpen(false)}
               >
                 {dict.filters.apply}
               </button>
             </div>
           </div>
-        ) : null}
-      </div>
-    </>
-  );
-}
-
-function FilterGroup({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <p className="mb-2 text-xs uppercase tracking-[0.16em] text-charcoal/70">{label}</p>
-      <div className="flex flex-wrap gap-2">{children}</div>
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function Chip({
+function FilterChip({
   label,
   active,
   onClick,
@@ -223,14 +306,19 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={cn(
-        "border px-3 py-1.5 text-xs capitalize transition-colors",
+        "min-h-11 border px-4 text-[11px] uppercase tracking-[0.14em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne",
         active
-          ? "border-champagne bg-champagne/15 text-charcoal"
-          : "border-charcoal/15 text-charcoal/70 hover:border-champagne/50",
+          ? "border-charcoal bg-charcoal text-ivory"
+          : "border-charcoal/15 text-charcoal/70 hover:border-charcoal/40",
       )}
     >
       {label}
     </button>
   );
+}
+
+export function categoryLabel(category: ProductCategory | string) {
+  return categoryLabels[category as ProductCategory] ?? category;
 }
