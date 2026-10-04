@@ -87,8 +87,9 @@ export const shopCollections: Collection[] = [
 export const bridalHero = {
   eyebrow: "Bridal",
   title: "For Every Beginning",
-  supporting: "Jewellery for the moments that begin a lifetime.",
-  cta: { label: "Explore Bridal", href: "/bridal" },
+  supporting:
+    "Jewellery for weddings, celebrations and the moments that begin a new chapter.",
+  cta: { label: "Bridal Enquiry", href: "/contact?type=bridal" },
   image: {
     src: "/images/bridal/hero.jpg",
     alt: "Editorial bridal portrait with warm gold jewellery",

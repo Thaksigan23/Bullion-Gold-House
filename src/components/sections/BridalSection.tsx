@@ -18,6 +18,9 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
+  const discovery = bridalCollections.filter((c) => c.id !== "bridal-enquiry");
+  const enquiry = bridalCollections.find((c) => c.id === "bridal-enquiry");
+
   useGSAP(
     () => {
       if (!root.current || reduced) return;
@@ -25,7 +28,7 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
       const ctx = gsap.context(() => {
         gsap.fromTo(
           ".bridal-hero-img",
-          { scale: 1.06 },
+          { scale: 1.04 },
           {
             scale: 1,
             ease: "none",
@@ -40,12 +43,12 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
 
         gsap.fromTo(
           ".bridal-reveal",
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
-            duration: 1,
-            stagger: 0.1,
+            duration: 1.05,
+            stagger: 0.08,
             ease: "power3.out",
             scrollTrigger: {
               trigger: ".bridal-hero",
@@ -56,12 +59,12 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
 
         gsap.fromTo(
           ".bridal-card",
-          { opacity: 0, y: 28 },
+          { opacity: 0, y: 22 },
           {
             opacity: 1,
             y: 0,
             duration: 0.95,
-            stagger: 0.08,
+            stagger: 0.07,
             ease: "power3.out",
             scrollTrigger: {
               trigger: ".bridal-grid",
@@ -78,8 +81,7 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
 
   return (
     <section ref={root} className="bg-near-black text-ivory">
-      {/* Bridge from dark showcase into editorial bridal photography */}
-      <div className="bridal-hero relative min-h-[65svh] overflow-hidden md:min-h-[72svh]">
+      <div className="bridal-hero relative min-h-[78svh] overflow-hidden md:min-h-[88svh]">
         <Image
           src={bridalHero.image.src}
           alt={bridalHero.image.alt}
@@ -91,18 +93,17 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
           sizes="100vw"
           priority={false}
         />
-        {/* Left-weighted gradient — keep bride jewellery on the right readable */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-near-black/78 via-near-black/22 to-transparent md:from-near-black/70 md:via-near-black/12 md:to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-near-black/70 via-near-black/15 to-transparent md:from-near-black/62 md:via-near-black/8 md:to-transparent"
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-near-black/55 via-transparent to-near-black/15"
+          className="absolute inset-0 bg-gradient-to-t from-near-black/50 via-transparent to-near-black/10"
         />
 
-        <div className="relative z-10 flex min-h-[65svh] items-end px-5 pb-14 pt-28 md:min-h-[72svh] md:px-10 md:pb-20 lg:px-16">
-          <div className="max-w-xl">
+        <div className="relative z-10 flex min-h-[78svh] items-end px-5 pb-16 pt-28 md:min-h-[88svh] md:px-10 md:pb-24 lg:px-16">
+          <div className="max-w-lg">
             <p
               className={cn(
                 "bridal-reveal text-[11px] uppercase tracking-[0.32em] text-champagne",
@@ -113,7 +114,7 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
             </p>
             <h2
               className={cn(
-                "bridal-reveal mt-4 font-serif text-[clamp(2.75rem,6vw,5rem)] leading-[0.96] tracking-[-0.03em]",
+                "bridal-reveal mt-4 font-serif text-[clamp(2.75rem,6.5vw,5.25rem)] leading-[0.94] tracking-[-0.03em]",
                 !reduced && "opacity-0",
               )}
             >
@@ -121,20 +122,20 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
             </h2>
             <p
               className={cn(
-                "bridal-reveal mt-5 max-w-md text-base leading-relaxed text-ivory/80 md:text-lg",
+                "bridal-reveal mt-5 max-w-md text-base leading-relaxed text-ivory/78",
                 !reduced && "opacity-0",
               )}
             >
               {bridalHero.supporting}
             </p>
             <LocaleLink
-              href={bridalHero.cta.href}
+              href={enquiry?.href ?? bridalHero.cta.href}
               className={cn(
-                "bridal-reveal mt-8 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-ivory transition-colors hover:text-champagne",
+                "bridal-reveal mt-9 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-ivory transition-colors hover:text-champagne",
                 !reduced && "opacity-0",
               )}
             >
-              {bridalHero.cta.label}
+              Bridal Enquiry
               <span aria-hidden className="text-champagne">
                 →
               </span>
@@ -143,64 +144,44 @@ export function BridalSection({ locale: _locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Follow-up discovery — warm cream return begins */}
-      <div className="bg-cream px-5 py-[clamp(4.5rem,10vw,7.5rem)] text-charcoal md:px-8">
+      <div className="bg-cream px-5 py-[clamp(3.5rem,8vw,6rem)] text-charcoal md:px-8">
         <div className="mx-auto max-w-[1440px]">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-taupe">
-            Bridal Collections
-          </p>
-          <h3 className="mt-3 max-w-xl font-serif text-[clamp(1.85rem,3.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em]">
-            Discover jewellery for every beginning
-          </h3>
-
-          <div className="bridal-grid mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-            {bridalCollections.map((item) => {
-              const isEnquiry = item.id === "bridal-enquiry";
-              return (
-                <LocaleLink
-                  key={item.id}
-                  href={item.href}
-                  className={cn(
-                    "bridal-card group relative block min-h-[280px] overflow-hidden bg-ivory md:min-h-[320px]",
-                    !reduced && "opacity-0",
-                  )}
-                >
-                  <div
-                    data-cursor={isEnquiry ? "Enquire" : "Explore"}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={item.image.src}
-                      alt={item.image.alt}
-                      fill
-                      className="object-cover transition-transform duration-[650ms] ease-out group-hover:scale-[1.035] group-focus-visible:scale-[1.035]"
-                      style={{
-                        objectPosition: item.image.objectPosition ?? "50% 50%",
-                      }}
-                      sizes="(max-width: 1024px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-near-black/72 via-near-black/12 to-transparent transition-colors duration-500 group-hover:from-near-black/78"
+          <div className="bridal-grid grid gap-2 md:grid-cols-3 md:gap-3">
+            {discovery.map((item) => (
+              <LocaleLink
+                key={item.id}
+                href={item.href}
+                className={cn(
+                  "bridal-card group relative block min-h-[340px] overflow-hidden bg-ivory md:min-h-[420px] lg:min-h-[480px]",
+                  !reduced && "opacity-0",
+                )}
+              >
+                <div data-cursor="Explore" className="absolute inset-0">
+                  <Image
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    fill
+                    className="object-cover transition-transform duration-[700ms] ease-out group-hover:scale-[1.03]"
+                    style={{
+                      objectPosition: item.image.objectPosition ?? "50% 50%",
+                    }}
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div
-                    data-cursor-ignore
-                    className="absolute inset-x-0 bottom-0 p-5"
-                  >
-                    <p className="font-serif text-2xl text-ivory transition-transform duration-500 group-hover:-translate-y-0.5">
-                      {item.name}
-                    </p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-ivory/70">
-                      {item.description}
-                    </p>
-                    <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-ivory/0 transition-all duration-500 group-hover:text-ivory/85 group-focus-visible:text-ivory/85">
-                      {isEnquiry ? "Enquire →" : "Explore →"}
-                    </p>
-                  </div>
-                </LocaleLink>
-              );
-            })}
+                </div>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-near-black/70 via-near-black/8 to-transparent"
+                />
+                <div data-cursor-ignore className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                  <p className="font-serif text-2xl text-ivory md:text-3xl">
+                    {item.name}
+                  </p>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-ivory/0 transition-all duration-500 group-hover:text-ivory/85">
+                    Explore →
+                  </p>
+                </div>
+              </LocaleLink>
+            ))}
           </div>
         </div>
       </div>

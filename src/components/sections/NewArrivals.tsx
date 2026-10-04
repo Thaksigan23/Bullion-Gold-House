@@ -84,11 +84,11 @@ export function NewArrivals({ locale: _locale }: { locale: Locale }) {
   return (
     <section
       ref={root}
-      className="bg-white px-5 pb-[clamp(4.5rem,12vw,9rem)] pt-[clamp(4.5rem,10vw,8rem)] md:px-8"
+      className="bg-ivory px-5 pb-[clamp(5rem,12vw,9rem)] pt-[clamp(2.5rem,6vw,4rem)] md:px-8"
     >
       <div className="mx-auto max-w-[1440px]">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <header className="max-w-xl">
+        <div className="flex flex-col gap-6 border-t border-charcoal/10 pt-14 md:flex-row md:items-end md:justify-between md:pt-20">
+          <header className="max-w-lg">
             <p
               className={cn(
                 "arrivals-eyebrow text-[11px] uppercase tracking-[0.28em] text-taupe",
@@ -99,7 +99,7 @@ export function NewArrivals({ locale: _locale }: { locale: Locale }) {
             </p>
             <h2
               className={cn(
-                "arrivals-heading mt-3 font-serif text-[clamp(2.25rem,4.8vw,3.75rem)] leading-[1.08] tracking-[-0.02em] text-charcoal",
+                "arrivals-heading mt-4 font-serif text-[clamp(2.15rem,4.2vw,3.25rem)] leading-[1.06] tracking-[-0.02em] text-charcoal",
                 !reduced && "opacity-0",
               )}
             >
@@ -107,7 +107,7 @@ export function NewArrivals({ locale: _locale }: { locale: Locale }) {
             </h2>
             <p
               className={cn(
-                "arrivals-copy mt-4 text-base leading-relaxed text-charcoal/65 md:text-lg",
+                "arrivals-copy mt-4 max-w-sm text-sm leading-relaxed text-charcoal/60 md:text-base",
                 !reduced && "opacity-0",
               )}
             >
@@ -126,12 +126,12 @@ export function NewArrivals({ locale: _locale }: { locale: Locale }) {
           </LocaleLink>
         </div>
 
-        <div className="arrivals-grid mt-10 flex gap-4 overflow-x-auto pb-2 no-scrollbar md:mt-14 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-12 md:overflow-visible md:pb-0 lg:grid-cols-4">
+        <div className="arrivals-grid mt-12 flex gap-5 overflow-x-auto pb-2 no-scrollbar md:mt-16 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-14 md:overflow-visible md:pb-0 lg:grid-cols-4 lg:gap-x-10">
           {products.map((product) => (
             <div
               key={product.id}
               className={cn(
-                "arrival-card min-w-[72vw] sm:min-w-[46vw] md:min-w-0",
+                "arrival-card min-w-[78vw] sm:min-w-[48vw] md:min-w-0",
                 !reduced && "opacity-0",
               )}
             >

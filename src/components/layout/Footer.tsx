@@ -15,16 +15,16 @@ export function Footer({ dict }: { dict: Dictionary }) {
 
   return (
     <footer className="bg-near-black text-ivory">
-      <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
+      <div className="mx-auto max-w-[1440px] px-5 py-20 md:px-8 md:py-24">
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1.8fr] lg:gap-20">
           <div>
-            <p className="font-serif text-[clamp(2rem,3.5vw,3rem)] tracking-[0.14em]">
+            <p className="font-serif text-[clamp(2.5rem,5vw,4rem)] tracking-[0.12em]">
               BULLION
             </p>
-            <p className="mt-1 text-xs uppercase tracking-[0.38em] text-champagne">
+            <p className="mt-2 text-[11px] uppercase tracking-[0.42em] text-champagne">
               Gold House
             </p>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-ivory/65">
+            <p className="mt-8 max-w-sm text-sm leading-relaxed text-ivory/55">
               Jewellery for life&apos;s meaningful moments.
             </p>
           </div>

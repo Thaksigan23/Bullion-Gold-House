@@ -93,21 +93,21 @@ export function CollectionGrid() {
   return (
     <section
       ref={root}
-      className="bg-ivory px-5 pb-[clamp(4.5rem,12vw,9rem)] pt-[clamp(4.5rem,10vw,7.5rem)] md:px-8"
+      className="bg-ivory px-5 pb-[clamp(5rem,14vw,10rem)] pt-[clamp(3.5rem,8vw,6rem)] md:px-8"
     >
       <div className="mx-auto max-w-[1440px]">
-        <header className="max-w-2xl">
+        <header className="max-w-xl">
           <p
             className={cn(
               "collections-eyebrow text-[11px] uppercase tracking-[0.28em] text-taupe",
               !reduced && "opacity-0",
             )}
           >
-            Explore
+            Collections
           </p>
           <h2
             className={cn(
-              "collections-heading mt-3 font-serif text-[clamp(2.25rem,4.8vw,3.75rem)] leading-[1.08] tracking-[-0.02em] text-charcoal",
+              "collections-heading mt-4 font-serif text-[clamp(2.15rem,4.5vw,3.5rem)] leading-[1.06] tracking-[-0.02em] text-charcoal",
               !reduced && "opacity-0",
             )}
           >
@@ -115,7 +115,7 @@ export function CollectionGrid() {
           </h2>
           <p
             className={cn(
-              "collections-copy mt-4 max-w-md text-base leading-relaxed text-charcoal/65 md:text-lg",
+              "collections-copy mt-4 max-w-sm text-sm leading-relaxed text-charcoal/60 md:text-base",
               !reduced && "opacity-0",
             )}
           >
@@ -124,76 +124,76 @@ export function CollectionGrid() {
         </header>
 
         {/* Desktop / tablet editorial mosaic */}
-        <div className="collections-mosaic mt-10 hidden gap-3 md:grid md:grid-cols-12 md:gap-4 lg:mt-14">
+        <div className="collections-mosaic mt-12 hidden gap-2 md:grid md:grid-cols-12 md:gap-3 lg:mt-16">
           <CollectionCard
             collection={necklaces}
-            className="md:col-span-7 md:row-span-2 md:min-h-[560px] lg:min-h-[640px]"
-            titleClass="md:text-4xl lg:text-5xl"
+            className="md:col-span-7 md:row-span-2 md:min-h-[620px] lg:min-h-[720px]"
+            titleClass="md:text-4xl lg:text-[2.75rem]"
             sizes="(max-width: 1024px) 60vw, 50vw"
           />
           <CollectionCard
             collection={earrings}
-            className="md:col-span-5 md:min-h-[270px] lg:min-h-[310px]"
+            className="md:col-span-5 md:min-h-[300px] lg:min-h-[350px]"
             sizes="(max-width: 1024px) 40vw, 35vw"
           />
           <CollectionCard
             collection={rings}
-            className="md:col-span-5 md:min-h-[270px] lg:min-h-[310px]"
+            className="md:col-span-5 md:min-h-[300px] lg:min-h-[350px]"
             sizes="(max-width: 1024px) 40vw, 35vw"
           />
           <CollectionCard
             collection={bangles}
-            className="md:col-span-6 md:min-h-[280px] lg:min-h-[320px]"
+            className="md:col-span-6 md:min-h-[300px] lg:min-h-[340px]"
             titleClass="md:text-3xl lg:text-4xl"
             sizes="(max-width: 1024px) 50vw, 40vw"
           />
           <CollectionCard
             collection={chains}
-            className="md:col-span-3 md:min-h-[280px] lg:min-h-[320px]"
+            className="md:col-span-3 md:min-h-[300px] lg:min-h-[340px]"
             sizes="(max-width: 1024px) 25vw, 20vw"
           />
           <CollectionCard
             collection={pendants}
-            className="md:col-span-3 md:min-h-[280px] lg:min-h-[320px]"
+            className="md:col-span-3 md:min-h-[300px] lg:min-h-[340px]"
             sizes="(max-width: 1024px) 25vw, 20vw"
           />
         </div>
 
         {/* Mobile intentional composition */}
-        <div className="collections-mosaic mt-10 grid gap-3 md:hidden">
+        <div className="collections-mosaic mt-10 grid gap-2 md:hidden">
           <CollectionCard
             collection={necklaces}
-            className="min-h-[360px]"
+            className="min-h-[380px]"
             titleClass="text-3xl"
             sizes="100vw"
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <CollectionCard
               collection={earrings}
-              className="min-h-[220px]"
+              className="min-h-[230px]"
               sizes="50vw"
             />
             <CollectionCard
               collection={rings}
-              className="min-h-[220px]"
+              className="min-h-[230px]"
               sizes="50vw"
             />
           </div>
           <CollectionCard
             collection={bangles}
-            className="min-h-[260px]"
+            className="min-h-[280px]"
             titleClass="text-3xl"
             sizes="100vw"
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <CollectionCard
               collection={chains}
-              className="min-h-[200px]"
+              className="min-h-[210px]"
               sizes="50vw"
             />
             <CollectionCard
               collection={pendants}
-              className="min-h-[200px]"
+              className="min-h-[210px]"
               sizes="50vw"
             />
           </div>
@@ -233,19 +233,18 @@ function CollectionCard({
         }}
         sizes={sizes}
       />
-      <div className="absolute inset-0 bg-near-black/30 transition-colors duration-[600ms] group-hover:bg-near-black/40 group-focus-visible:bg-near-black/40" />
-      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6">
+      <div className="absolute inset-0 bg-gradient-to-t from-near-black/65 via-near-black/10 to-transparent transition-opacity duration-[600ms] group-hover:from-near-black/72" />
+      <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
         <p
           className={cn(
-            "font-serif text-2xl text-ivory transition-transform duration-[600ms] ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1",
+            "font-serif text-2xl text-ivory transition-transform duration-[600ms] ease-out group-hover:-translate-y-0.5",
             titleClass,
           )}
         >
           {collection.name}
         </p>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-ivory/80 transition-transform duration-[600ms] ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1">
-          Explore
-          <span aria-hidden>→</span>
+        <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-ivory/0 transition-all duration-500 group-hover:text-ivory/85 group-focus-visible:text-ivory/85">
+          Explore →
         </p>
       </div>
     </LocaleLink>

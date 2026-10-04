@@ -31,65 +31,55 @@ export function JewelleryShowcase() {
           scrollTrigger: {
             trigger: root.current,
             start: "top top",
-            end: "+=190%",
-            scrub: 1.1,
+            end: "+=110%",
+            scrub: 1.25,
             pin: true,
             anticipatePin: 1,
           },
         });
 
-        // Stage 1–2: jewellery rises, scales; keep tilt subtle (≈0–1.5°)
+        // Quieter pin: image + type lead; motion stays restrained
         tl.fromTo(
           ".showcase-jewel",
-          { scale: 0.92, y: 40, rotate: -0.75 },
-          { scale: 1.1, y: 0, rotate: 1.25, ease: "none", duration: 1 },
+          { scale: 0.96, y: 24 },
+          { scale: 1.04, y: 0, ease: "none", duration: 1 },
           0,
         )
           .fromTo(
             ".showcase-glow",
-            { opacity: 0.18, scale: 0.75 },
-            { opacity: 0.42, scale: 1.1, ease: "none", duration: 1 },
+            { opacity: 0.14, scale: 0.85 },
+            { opacity: 0.28, scale: 1.02, ease: "none", duration: 1 },
             0,
           )
           .fromTo(
             ".showcase-eyebrow",
-            { opacity: 0, y: 18 },
+            { opacity: 0, y: 14 },
             { opacity: 1, y: 0, ease: "none", duration: 0.35 },
-            0.08,
+            0.05,
           )
-          // Stage 3: statement
           .fromTo(
             ".showcase-line",
-            { opacity: 0, y: 28 },
-            { opacity: 1, y: 0, stagger: 0.08, ease: "none", duration: 0.4 },
-            0.35,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, stagger: 0.06, ease: "none", duration: 0.4 },
+            0.25,
           )
           .fromTo(
             ".showcase-support",
-            { opacity: 0, y: 18 },
+            { opacity: 0, y: 14 },
             { opacity: 1, y: 0, ease: "none", duration: 0.35 },
-            0.55,
+            0.45,
           )
-          // Stage 4: editorial labels
           .fromTo(
             ".showcase-label",
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, stagger: 0.06, ease: "none", duration: 0.3 },
-            0.65,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, stagger: 0.05, ease: "none", duration: 0.3 },
+            0.55,
           )
-          // Stage 5: CTA
           .fromTo(
             ".showcase-cta",
-            { opacity: 0, y: 14 },
+            { opacity: 0, y: 10 },
             { opacity: 1, y: 0, ease: "none", duration: 0.3 },
-            0.85,
-          )
-          // Subtle light sweep across jewellery
-          .fromTo(
-            ".showcase-shine",
-            { xPercent: -120, opacity: 0 },
-            { xPercent: 120, opacity: 0.55, ease: "none", duration: 0.9 },
-            0.2,
+            0.7,
           );
 
         ScrollTrigger.refresh();
@@ -213,11 +203,6 @@ export function JewelleryShowcase() {
                   }}
                 />
               </div>
-              {/* Studio light sweep */}
-              <div
-                aria-hidden
-                className="showcase-shine pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-ivory/18 to-transparent mix-blend-soft-light"
-              />
             </div>
 
             <ul className="pointer-events-none absolute inset-0 z-20">

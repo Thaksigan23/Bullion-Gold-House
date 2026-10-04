@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { showroomContent } from "@/data/content";
 import { siteConfig } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
@@ -16,14 +16,14 @@ export function ShowroomCTA({
   const { contact } = siteConfig;
   const hasAddress = Boolean(contact.address);
   const hasPhone = Boolean(contact.phone);
-  const hasWhatsapp = Boolean(contact.whatsapp);
   const hasEmail = Boolean(contact.email);
-  const hasDirections = Boolean(contact.directionsUrl || contact.mapUrl);
   const hasHours = Boolean(contact.hours);
+  const hasDetails = hasAddress || hasHours || hasPhone || hasEmail;
+
   return (
-    <section className="bg-cream">
-      <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative min-h-[360px] overflow-hidden lg:min-h-[560px]">
+    <section className="bg-ivory">
+      <div className="mx-auto grid max-w-[1600px] lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="relative min-h-[420px] overflow-hidden lg:min-h-[640px]">
           <Image
             src={showroomContent.image.src}
             alt={showroomContent.image.alt}
@@ -33,32 +33,32 @@ export function ShowroomCTA({
               objectPosition:
                 showroomContent.image.objectPosition ?? "50% 30%",
             }}
-            sizes="(max-width: 1024px) 100vw, 52vw"
+            sizes="(max-width: 1024px) 100vw, 58vw"
           />
         </div>
 
-        <div className="flex flex-col justify-center px-5 py-[clamp(3.5rem,8vw,6.5rem)] md:px-10 lg:px-14 xl:px-16">
+        <div className="flex flex-col justify-center px-5 py-[clamp(4rem,9vw,7rem)] md:px-12 lg:px-16 xl:px-20">
           <p className="text-[11px] uppercase tracking-[0.32em] text-taupe">
             {showroomContent.eyebrow}
           </p>
-          <h2 className="mt-4 font-serif text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.02] tracking-[-0.02em] text-charcoal">
+          <h2 className="mt-5 font-serif text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.02] tracking-[-0.02em] text-charcoal">
             {showroomContent.line1}
             <br />
             {showroomContent.line2}
           </h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-charcoal/70 md:text-lg">
+          <p className="mt-5 max-w-md text-base leading-relaxed text-charcoal/65">
             {showroomContent.supporting}
           </p>
 
-          {(hasAddress || hasHours || hasPhone || hasEmail) && (
-            <div className="mt-8 space-y-2 text-sm text-charcoal/70">
+          {hasDetails ? (
+            <div className="mt-8 space-y-2 text-sm text-charcoal/65">
               {hasAddress ? <p>{contact.address}</p> : null}
               {hasHours ? <p>{contact.hours}</p> : null}
               {hasPhone ? (
                 <p>
                   <a
                     href={`tel:${contact.phone}`}
-                    className="transition-colors hover:text-champagne focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
+                    className="transition-colors hover:text-champagne"
                   >
                     {contact.phone}
                   </a>
@@ -68,59 +68,33 @@ export function ShowroomCTA({
                 <p>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="transition-colors hover:text-champagne focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
+                    className="transition-colors hover:text-champagne"
                   >
                     {contact.email}
                   </a>
                 </p>
               ) : null}
             </div>
-          )}
+          ) : null}
 
-          <div className="mt-9 flex flex-wrap gap-3">
-            {hasPhone ? (
-              <Button href={`tel:${contact.phone}`} variant="primary" size="lg">
-                {dict.common.callUs}
-              </Button>
-            ) : null}
-            {hasWhatsapp ? (
-              <Button
-                href={`https://wa.me/${contact.whatsapp!.replace(/\D/g, "")}`}
-                variant="outline"
-                size="lg"
-              >
-                {dict.common.whatsappUs}
-              </Button>
-            ) : null}
-            {hasEmail ? (
-              <Button
-                href={`mailto:${contact.email}`}
-                variant="outline"
-                size="lg"
-              >
-                Email
-              </Button>
-            ) : null}
-            {hasDirections ? (
-              <Button
-                href={contact.directionsUrl || contact.mapUrl || undefined}
-                variant="outline"
-                size="lg"
-              >
-                {dict.common.getDirections}
-              </Button>
-            ) : null}
-            <Button
+          <div className="mt-10">
+            <Link
               href={localizedHref("/contact", locale)}
-              variant={
-                hasPhone || hasWhatsapp || hasEmail || hasDirections
-                  ? "outline"
-                  : "primary"
-              }
-              size="lg"
+              className="inline-flex items-center gap-2 border border-charcoal bg-charcoal px-7 py-3 text-[11px] uppercase tracking-[0.2em] text-ivory transition-colors hover:bg-near-black"
             >
-              Contact →
-            </Button>
+              Contact
+              <span aria-hidden>→</span>
+            </Link>
+            {hasPhone ? (
+              <p className="mt-5">
+                <a
+                  href={`tel:${contact.phone}`}
+                  className="text-[11px] uppercase tracking-[0.18em] text-charcoal/60 transition-colors hover:text-champagne"
+                >
+                  {dict.common.callUs}
+                </a>
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

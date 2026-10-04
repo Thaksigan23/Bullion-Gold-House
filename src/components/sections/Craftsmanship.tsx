@@ -23,7 +23,7 @@ export function Craftsmanship() {
       const ctx = gsap.context(() => {
         gsap.fromTo(
           ".craft-img",
-          { scale: 1.06 },
+          { scale: 1.04 },
           {
             scale: 1,
             ease: "none",
@@ -38,12 +38,12 @@ export function Craftsmanship() {
 
         gsap.fromTo(
           ".craft-reveal",
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
             duration: 1.05,
-            stagger: 0.1,
+            stagger: 0.09,
             ease: "power3.out",
             scrollTrigger: {
               trigger: root.current,
@@ -62,12 +62,12 @@ export function Craftsmanship() {
     <section
       id="craftsmanship"
       ref={root}
-      className="bg-ivory px-5 py-[clamp(4.5rem,10vw,8rem)] md:px-8"
+      className="bg-cream px-5 py-[clamp(4rem,10vw,8rem)] md:px-8"
     >
-      <div className="mx-auto grid max-w-[1440px] items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 xl:gap-20">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 xl:gap-24">
         <div
           className={cn(
-            "craft-reveal relative min-h-[420px] overflow-hidden bg-cream md:min-h-[520px] lg:min-h-[640px]",
+            "craft-reveal relative min-h-[460px] overflow-hidden bg-ivory md:min-h-[560px] lg:min-h-[720px]",
             !reduced && "opacity-0",
           )}
         >
@@ -80,11 +80,11 @@ export function Craftsmanship() {
               objectPosition:
                 craftsmanshipContent.image.objectPosition ?? "50% 50%",
             }}
-            sizes="(max-width: 1024px) 100vw, 58vw"
+            sizes="(max-width: 1024px) 100vw, 62vw"
           />
         </div>
 
-        <div className="max-w-md lg:py-8">
+        <div className="max-w-sm lg:py-10">
           <p
             className={cn(
               "craft-reveal text-[11px] uppercase tracking-[0.32em] text-taupe",
@@ -95,7 +95,7 @@ export function Craftsmanship() {
           </p>
           <h2
             className={cn(
-              "craft-reveal mt-4 font-serif text-[clamp(2.25rem,4.2vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-charcoal",
+              "craft-reveal mt-5 font-serif text-[clamp(2.15rem,4vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-charcoal",
               !reduced && "opacity-0",
             )}
           >
@@ -103,7 +103,7 @@ export function Craftsmanship() {
           </h2>
           <p
             className={cn(
-              "craft-reveal mt-6 text-base leading-relaxed text-charcoal/70 md:text-lg",
+              "craft-reveal mt-6 text-base leading-relaxed text-charcoal/65",
               !reduced && "opacity-0",
             )}
           >

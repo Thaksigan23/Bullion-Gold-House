@@ -8,7 +8,7 @@
   --champagne: #b49a63;
   --taupe: #a89f92;
   --white: #ffffff;
-  --header-h: 5rem; /* 80px — within 72–88px jewellery header range */
+  --header-h: 4.75rem; /* quieter luxury header */
 }
 
 @theme inline {
@@ -83,21 +83,21 @@ body:lang(si),
 }
 
 .hero-overlay {
+  /* Lighter veil — photography leads; copy remains readable */
   background:
     linear-gradient(
       90deg,
-      rgba(10, 10, 9, 0.88) 0%,
-      rgba(10, 10, 9, 0.62) 28%,
-      rgba(10, 10, 9, 0.22) 52%,
-      rgba(10, 10, 9, 0.04) 72%,
-      transparent 100%
+      rgba(10, 10, 9, 0.72) 0%,
+      rgba(10, 10, 9, 0.42) 32%,
+      rgba(10, 10, 9, 0.12) 58%,
+      transparent 78%
     ),
     linear-gradient(
       180deg,
-      rgba(10, 10, 9, 0.28) 0%,
-      transparent 28%,
-      transparent 72%,
-      rgba(10, 10, 9, 0.45) 100%
+      rgba(10, 10, 9, 0.22) 0%,
+      transparent 32%,
+      transparent 68%,
+      rgba(10, 10, 9, 0.38) 100%
     );
 }
 
@@ -106,15 +106,15 @@ body:lang(si),
     background:
       linear-gradient(
         180deg,
-        rgba(10, 10, 9, 0.35) 0%,
-        rgba(10, 10, 9, 0.15) 35%,
-        rgba(10, 10, 9, 0.55) 70%,
-        rgba(10, 10, 9, 0.82) 100%
+        rgba(10, 10, 9, 0.28) 0%,
+        rgba(10, 10, 9, 0.08) 38%,
+        rgba(10, 10, 9, 0.48) 72%,
+        rgba(10, 10, 9, 0.78) 100%
       ),
       linear-gradient(
         90deg,
-        rgba(10, 10, 9, 0.45) 0%,
-        transparent 55%
+        rgba(10, 10, 9, 0.28) 0%,
+        transparent 60%
       );
   }
 }

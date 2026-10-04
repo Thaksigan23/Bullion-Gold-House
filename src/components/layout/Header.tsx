@@ -53,11 +53,11 @@ export function Header({
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
           solid
-            ? "border-b border-charcoal/10 bg-ivory/85 text-charcoal backdrop-blur-xl"
+            ? "border-b border-charcoal/8 bg-ivory/90 text-charcoal backdrop-blur-md"
             : "bg-transparent text-ivory",
         )}
       >
-        <div className="mx-auto grid h-[var(--header-h)] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-x-4 px-4 md:px-6 xl:px-10">
+        <div className="mx-auto grid h-[var(--header-h)] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-x-3 px-4 md:px-6 xl:px-10">
           {/* LEFT */}
           <div className="flex min-w-0 items-center justify-start">
             <button
